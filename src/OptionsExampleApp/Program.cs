@@ -52,9 +52,13 @@ namespace OptionsExampleApp
             Console.WriteLine(presenter.Serialize(settings2.Value));
             Console.WriteLine("change config and Press any key");
             Console.ReadKey();
+            Console.WriteLine("create new instance of IOptions");
+            var settings3 = serviceFactory.GetService<IOptions<Settings>>();
+            Console.WriteLine(presenter.Serialize(settings3.Value));
+            Console.ReadKey();
             Console.WriteLine("create new instance of IOptionsSnapshot");
-            var settings3 = serviceFactory.GetService<IOptionsSnapshot<Settings>>();
-            Console.WriteLine(presenter.Serialize(settings2.Value));
+            var settings4 = serviceFactory.GetService<IOptionsSnapshot<Settings>>();
+            Console.WriteLine(presenter.Serialize(settings4.Value));
 
             Console.WriteLine("Create new instance of service");
             Console.ReadKey();
@@ -62,12 +66,14 @@ namespace OptionsExampleApp
             Console.WriteLine(someService2.PrintCurrentConfig());
 
             var key = new ConsoleKeyInfo('a', ConsoleKey.A, false, false, false);
+            long iCount = 0;
 
             while (key.Key != ConsoleKey.Enter)
             {
-                Console.WriteLine("change config and Press any key to check or Enter to exit");
+                Console.WriteLine($"#{iCount} change config and Press any key to check or Enter to exit");
                 key = Console.ReadKey();
                 Console.WriteLine(someService2.PrintCurrentConfig());
+                iCount += 1;
             }
         }
 
